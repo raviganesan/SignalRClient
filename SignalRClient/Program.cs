@@ -17,6 +17,12 @@ namespace SignalRClient
             var myHub = connection.CreateHubProxy("RealTimeHub");
             //Start connection
 
+
+            myHub.On<string>("addMessage", param => {
+                Console.WriteLine(param);
+            });
+
+
             connection.Start().ContinueWith(task => {
                 if (task.IsFaulted)
                 {
@@ -42,11 +48,9 @@ namespace SignalRClient
             //    }
             //});
 
-            myHub.On<string>("addMessage", param => {
-                Console.WriteLine(param);
-            });
+          
 
-            myHub.Invoke<string>("ConfigSettings", "I'm doing something!!!").Wait();
+           // myHub.Invoke<string>("ConfigSettings", "I'm doing something!!!").Wait();
 
             while(true)
             {
